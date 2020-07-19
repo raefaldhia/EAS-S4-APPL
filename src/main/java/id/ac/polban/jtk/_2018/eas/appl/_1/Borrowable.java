@@ -1,21 +1,22 @@
+package id.ac.polban.jtk._2018.eas.appl._1;
+
 import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
 
-/**
- * This interface should be implemented by the Book and CoursePack classes
- * 
- */
-public class Borrowable extends LibraryResource{
+public abstract class Borrowable extends Resource {
 
-		Vector<Integer> requests = new Vector<Integer>();
-		Date issueDate;
-		Date dueDate;
-		int issuedTo;
-		int relatedFineID;
-		
-		boolean available;
+	Borrowable(final String name) {
+		super(name);
+	}
+
+	Vector<Integer> requests = new Vector<Integer>();
+	Date issueDate;
+	Date dueDate;
+	int issuedTo;
+	int relatedFineID;
+	
+	boolean available;
 		
 		
     /**
@@ -62,11 +63,11 @@ public class Borrowable extends LibraryResource{
 			
 			if(requests.size() > 0){
 				Library lib = Library.getInstance("LUMS Library");
-				Borrower borrower =  (Borrower)(lib.findUser((int)requests.elementAt(0)) );
+				Borrower borrower =  (Borrower)(lib.getUserManager().get((int)requests.elementAt(0)) );
 				requests.remove(0);
-				borrower.issuedResources.addElement(this.resourceID);
-				this.issueResource(borrower.userID);
-				borrower.withdrawRequest(this.resourceID);
+				borrower.issuedResources.addElement(this.getId());
+				this.issueResource(borrower.getId());
+				borrower.withdrawRequest(this.getId());
 			}
 			else{
 				issueDate = null;

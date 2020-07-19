@@ -1,8 +1,15 @@
+package id.ac.polban.jtk._2018.eas.appl._1;
+
 import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class CoursePack extends Borrowable{
+public class CoursePack extends Borrowable {
+	CoursePack(final String name){
+		super(name);
+		this.available = true;
+		this.issuedTo = -1;
+	}
 	
 	boolean issueResource(int userID){
 			issuedTo = userID;
@@ -14,13 +21,5 @@ public class CoursePack extends Borrowable{
 			issueDate = cal.getTime();
 			System.out.println(issueDate);
 			return true;
-	}
-	
-	CoursePack(String resName,int resID){
-		this.resourceName = resName;
-		this.resourceID = resID;
-		this.available = true;
-		this.issuedTo = -1;
-		this.type = Constants.COURSE_PACK;
-	}
+	}	
 }

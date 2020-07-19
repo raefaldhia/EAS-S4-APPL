@@ -1,3 +1,5 @@
+package id.ac.polban.jtk._2018.eas.appl._1;
+
 /**
  * This interface must be implemented by the Library class
  * 

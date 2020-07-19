@@ -1,17 +1,25 @@
+package id.ac.polban.jtk._2018.eas.appl._1;
+
 import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class Book extends Borrowable{
+public class Book extends Borrowable {
 	
+	Book(final String name){
+		super(name);
+		this.available = true;
+		this.issuedTo = -1;
+	}
+
 	boolean issueResource(int userID){
 			Library lib = Library.getInstance("LUMS Library");
-			LibraryUser user = lib.findUser(userID);
+			User user = lib.getUserManager().get(userID);
 			int daysToIssue;
-			if(user.type == Constants.FACULTY){
+			if (user instanceof Faculty) {
 				daysToIssue = 30;
 			}
-			else if(user.type == Constants.STUDENT){
+			else if(user instanceof Student){
 				daysToIssue = 15;
 			}
 			else{
@@ -41,13 +49,5 @@ public class Book extends Borrowable{
 		else{
 			return false;
 		}
-	}
-	
-	Book(String resName,int resID){
-		this.resourceID = resID;
-		this.resourceName = resName;
-		this.available = true;
-		this.issuedTo = -1;
-		this.type = Constants.BOOK;
 	}
 }
